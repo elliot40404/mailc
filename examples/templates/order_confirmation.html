@@ -1,0 +1,57 @@
+<!-- $Subject: Welcome {{User.Name}} – Order #{{Order.ID}} placed {{Order.CreatedAt}} -->
+
+<!-- @type Order -->
+<!-- @type Order.ID int -->
+<!-- @type Order.Name string -->
+<!-- @type Order.Qty int -->
+<!-- @type Order.CreatedAt string -->
+
+<!-- @type User -->
+<!-- @type User.Name string -->
+
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <title>Order Confirmation</title>
+    <style>
+        table {
+            border-collapse: collapse;
+            width: 100%;
+        }
+
+        th,
+        td {
+            border: 1px solid #ddd;
+            padding: 8px;
+        }
+
+        th {
+            background-color: #f2f2f2;
+        }
+    </style>
+</head>
+
+<body>
+    <h1>Welcome, {{User.Name}}!</h1>
+    <p>Your recent order details are below:</p>
+    <table>
+        <tr>
+            <th>Order ID</th>
+            <th>Product Name</th>
+            <th>Qty</th>
+            <th>Placed At</th>
+        </tr>
+        <tr>
+            <td>{{Order.ID}}</td>
+            <td>{{Order.Name}}</td>
+            <td>{{Order.Qty}}</td>
+            <td>{{Order.CreatedAt}}</td>
+        </tr>
+    </table>
+    <p>Thanks for choosing us!</p>
+</body>
+
+</html>
+
+

@@ -1,0 +1,19 @@
+#!/usr/bin/env bash
+set -euo pipefail
+
+echo "Running pre-commit checks: go fmt, vet, lint (if available)"
+
+# Format and vet
+go fmt ./...
+go vet ./...
+
+# Lint if tool installed
+if command -v golangci-lint >/dev/null 2>&1; then
+  golangci-lint run --out-format=short
+else
+  echo "golangci-lint not found; skipping lint. Install: https://golangci-lint.run"
+fi
+
+echo "Pre-commit checks passed"
+
+

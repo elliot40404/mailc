@@ -1,0 +1,21 @@
+#!/usr/bin/env bash
+set -euo pipefail
+
+echo "Running pre-push checks: build, lint, test"
+
+# Build CLI (fast fail if build breaks)
+go build ./...
+
+# Lint (auto-fix where possible; if you prefer strict, replace with just 'golangci-lint run')
+if command -v golangci-lint >/dev/null 2>&1; then
+  golangci-lint run
+else
+  echo "golangci-lint not found; skipping lint. Install: https://golangci-lint.run"
+fi
+
+# Run tests
+go test ./...
+
+echo "OK"
+
+

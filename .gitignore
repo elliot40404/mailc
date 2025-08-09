@@ -1,0 +1,4 @@
+emails/
+dist/
+bin
+internal/emails
