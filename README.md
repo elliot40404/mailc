@@ -77,6 +77,8 @@ During generation, mailc:
 
 ```bash
 mailc generate -input ./emails -output ./internal/emails
+# Or with custom package name:
+mailc generate -input ./emails -output ./internal/emails -package myemails
 ```
 
 3) Use the generated package in your code:
@@ -124,9 +126,9 @@ Suggested template names (any filename is supported; names are safely converted 
 For each `name.html`, mailc generates in `package emails`:
 
 - `type NameEmailData struct { ... }` – root input data
-- `type NameEmailResult struct { Subject string; HTML string }` – output
+- `type RenderedEmail struct { Subject string; HTML string }` – shared output type (in `types.go`)
 - Struct types per template, e.g. `NameEmailUser`, `NameEmailOrder`
-- `func NameEmail(data *NameEmailData) (NameEmailResult, error)` – renders subject and HTML
+- `func NameEmail(data *NameEmailData) (RenderedEmail, error)` – renders subject and HTML
 
 Constant names are unique per file, e.g. `nameEmailHTMLTemplate` and `nameEmailSubjectTemplate`.
 
@@ -211,6 +213,7 @@ Commands:
 Flags (for generate):
   -input     Directory containing HTML email templates (default: ./emails)
   -output    Directory to write generated Go code (default: ./internal/emails)
+  -package   Package name for generated Go code (default: emails)
 ```
 
 Just recipes:

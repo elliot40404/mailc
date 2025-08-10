@@ -27,9 +27,11 @@ Commands:
 Flags (for generate command):
   -input     Directory containing HTML email templates (default: ./emails)
   -output    Directory to write generated Go code (default: ./internal/emails)
+  -package   Package name for generated Go code (default: emails)
 
 Examples:
   mailc generate -input ./emails -output ./internal/emails
+  mailc generate -input ./templates -output ./pkg/emails -package myemails
   mailc version`)
 }
 
@@ -52,6 +54,7 @@ func main() {
 		fs := flag.NewFlagSet("generate", flag.ExitOnError)
 		inputDir := fs.String("input", "./emails", "Directory containing HTML email templates")
 		outputDir := fs.String("output", "./internal/emails", "Directory to write generated Go code")
+		packageName := fs.String("package", "emails", "Package name for generated Go code")
 		version := fs.String("version", VERSION, "Version string to embed in generated files")
 		err := fs.Parse(os.Args[2:])
 		if err != nil {
@@ -85,7 +88,7 @@ func main() {
 		}
 
 		// Generate code
-		if err := generator.GenerateCode(templates, *outputDir, *version); err != nil {
+		if err := generator.GenerateCode(templates, *outputDir, *packageName, *version); err != nil {
 			log.Fatalf("Code generation failed: %v", err)
 		}
 

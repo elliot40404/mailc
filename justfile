@@ -46,4 +46,4 @@ release:
     goreleaser release --snapshot --clean
 
 gen-examples: build
-    ./bin/mailc generate -input ./examples/templates -output ./examples/generated
+    ./bin/mailc generate -input ./examples/templates -output ./examples/generated -package generated

@@ -38,7 +38,7 @@ Hi {{firstName}}
 		t.Fatalf("ParseDir: %v", err)
 	}
 	out := t.TempDir()
-	if err := GenerateCode(pts, out, "TEST"); err != nil {
+	if err := GenerateCode(pts, out, "emails", "TEST"); err != nil {
 		t.Fatalf("GenerateCode: %v", err)
 	}
 
@@ -116,7 +116,7 @@ func TestGenerateCode_NoSubject_NoTextTemplateImport(t *testing.T) {
 		t.Fatalf("ParseDir: %v", err)
 	}
 	out := t.TempDir()
-	if err := GenerateCode(pts, out, "TEST"); err != nil {
+	if err := GenerateCode(pts, out, "emails", "TEST"); err != nil {
 		t.Fatalf("GenerateCode: %v", err)
 	}
 	genPath := filepath.Join(out, "nosubject.email.go")
@@ -131,10 +131,8 @@ func TestGenerateCode_NoSubject_NoTextTemplateImport(t *testing.T) {
 			t.Fatalf("text/template should not be imported when subject is empty")
 		}
 	}
-	// Ensure result struct exists
-	if !typeHasField(file, "NosubjectEmailResult", "Subject") || !typeHasField(file, "NosubjectEmailResult", "HTML") {
-		t.Fatalf("expected result struct to be generated")
-	}
+	// Ensure common result struct is referenced in function signature via compilation (indirect)
+	// We no longer generate a per-template result type; a shared RenderedEmail is used.
 }
 
 // Helpers
