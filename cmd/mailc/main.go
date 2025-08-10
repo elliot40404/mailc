@@ -11,7 +11,7 @@ import (
 	"github.com/elliot40404/mailc/internal/parser"
 )
 
-const VERSION = "DEBUG"
+var VERSION = "DEBUG"
 
 func printHelp() {
 	fmt.Println(`mailc - Type-safe email templates
